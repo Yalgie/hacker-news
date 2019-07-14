@@ -3,7 +3,7 @@ export default (state = {}, action) => {
         case 'SET_TOP_STORIES':
             return {
                 ...state,
-                stories: action.data.data
+                stories: action.stories
             }
         default:
             return state;

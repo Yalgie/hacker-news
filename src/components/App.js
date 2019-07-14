@@ -9,22 +9,26 @@ export default function App() {
     const stories = useSelector(state => state.stories);
     const [loaded, setLoaded] = useState(false);
     const [page, setPage] = useState(0);
-    const total = (stories.length / 10);
+    const total = (stories.length / 10); // 10 being the max amount of stories per page
     const min = (page * 10);
     const max = (min + 10);
     const storyIds = stories.slice(min, max);
-    const activeStories = storyIds.map(id => {
-        return <Story key={id} id={id} />
+    const activeStories = storyIds.map(data => {
+        return <Story 
+            key={data.id} 
+            id={data.id} 
+            title={data.title}  
+            fetched={data.fetched}
+            by={data.by}
+            time={data.time}
+            kids={data.kids}
+        />
     });
 
     useEffect(() => {
         if (!loaded) {
             setLoaded(true);
-            dispatch({
-                type: 'GET_TOP_STORIES',
-                endpoint: "/topstories.json",
-                reducer: 'SET_TOP_STORIES',
-            });
+            dispatch({type: 'GET_TOP_STORIES'});
         }
     }, [setLoaded, dispatch, loaded])
 

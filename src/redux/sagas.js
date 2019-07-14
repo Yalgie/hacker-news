@@ -4,9 +4,9 @@ import axios from 'axios';
 const apiBase = "https://hacker-news.firebaseio.com/v0";
 
 function* fetchData(action) {
-    const data = yield axios.get(`${apiBase}${action.url}`);
+    const data = yield axios.get(`${apiBase}${action.endpoint}`);
     yield put({
-        type: action.payload,
+        type: action.reducer,
         data,
     });
 }
@@ -14,6 +14,7 @@ function* fetchData(action) {
 function* getTopStories() {
     yield takeLatest('GET_TOP_STORIES', fetchData)
 }
+
 export default function* rootSaga() {
     yield all([
         getTopStories(),

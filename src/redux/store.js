@@ -5,9 +5,13 @@ import reducer from './reducers';
 import rootSaga from './sagas';
 
 const sagaMiddleware = createSagaMiddleware();
+const initialState = {
+    stories: []
+};
 
 export default createStore(
     reducer,
+    { ...initialState },
     composeWithDevTools(applyMiddleware(sagaMiddleware))
 );
 
